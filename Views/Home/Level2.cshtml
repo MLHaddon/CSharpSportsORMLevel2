@@ -1,0 +1,88 @@
+<div class="card">
+    <div class="card-header bg-dark text-light">Level 2</div>
+    <div class="card-body">
+        <p>Using the SportsORM, complete all the following queries and show their results on Level2.cshtml.</p>
+        <ol>
+            <li>...all teams in the Atlantic Soccer Conference</li>
+            <li>...all (current) players on the Boston Penguins (Hint: Boston is the Location, Penguins is the TeamName)</li>
+            <li>...all (current) players in the International Collegiate Baseball Conference</li>
+            <li>...all (current) players in the American Conference of Amateur Football with last name "Lopez"</li>
+            <li>...all football players</li>
+            <li>...all teams with a (current) player named "Sophia"</li>
+            <li>...all leagues with a (current) player named "Sophia"</li>
+            <li>...everyone with the last name "Flores" who DOESN'T (currently) play for the Washington Roughriders</li>
+        </ol>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header bg-dark text-light">...all teams in the Atlantic Soccer Conference</div>
+    <ul>
+        @foreach (Team team in ViewBag.AtlanticTeams)
+        {
+            <li>@team.TeamName</li>
+        }
+    </ul>
+</div>
+<div class="card">
+    <div class="card-header bg-dark text-light">...all (current) players on the Boston Penguins (Hint: Boston is the Location, Penguins is the TeamName)</div>
+    <ul>
+        @foreach (Player player in ViewBag.BostonPenguinsPlayers)
+        {
+            <li>@player.FirstName @player.LastName</li>
+        }
+    </ul>
+</div>
+<div class="card">
+    <div class="card-header bg-dark text-light">...all (current) players in the International Collegiate Baseball Conference</div>
+    <ul>
+        @foreach (Player player in ViewBag.CurrPlayersCollegiateBaseball)
+        {
+            <li>@player.FirstName @player.LastName</li>
+        }
+    </ul>
+</div>
+<div class="card">
+    <div class="card-header bg-dark text-light">...all (current) players in the American Conference of Amateur Football with last name "Lopez"</div>
+    <ul>
+        @foreach (Player player in ViewBag.LopezPlayersAmateurFootball)
+        {
+            <li>@player.FirstName @player.LastName</li>
+        }
+    </ul>
+</div>
+<div class="card">
+    <div class="card-header bg-dark text-light">...all football players</div>
+    <ul>
+        @foreach (Player player in ViewBag.AllFootballPlayers)
+        {
+            <li>@player.FirstName @player.LastName</li>
+        }
+    </ul>
+</div>
+<div class="card">
+    <div class="card-header bg-dark text-light">...all teams with a (current) player named "Sophia"</div>
+    <ul>
+        @foreach (Team team in ViewBag.SophiaTeams)
+        {
+            <li>@team.TeamName</li>
+        }
+    </ul>
+</div>
+<div class="card">
+    <div class="card-header bg-dark text-light">...all leagues with a (current) player named "Sophia"</div>
+    <ul>
+        @foreach (League league in ViewBag.SophiaLeagues)
+        {
+            <li>@league.Name</li>
+        }
+    </ul>
+</div>
+<div class="card">
+    <div class="card-header bg-dark text-light">...everyone with the last name "Flores" who DOESN'T (currently) play for the Washington Roughriders</div>
+    <ul>
+        @foreach (Player player in ViewBag.FloresPlayersNotRoughRider)
+        {
+            <li>@player.FirstName @player.LastName</li>
+        }
+    </ul>
+</div>
