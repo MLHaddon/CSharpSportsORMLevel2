@@ -86,6 +86,53 @@ namespace SportsORM.Controllers
         [HttpGet("level_3")]
         public IActionResult Level3()
         {
+            ViewBag.AllSamEvansTeams = _context.Teams
+                .Include(t => t.AllPlayers)
+                .Where(t => t.AllPlayers.Any(p => p.PlayerOnTeam.FirstName.Contains("Samuel")))
+                .Where(t => t.AllPlayers.Any(p => p.PlayerOnTeam.LastName.Contains("Evans")))
+                .ToList();
+                
+            ViewBag.ManitobaTigerCats = _context.Players
+                .Include(p => p.AllTeams)
+                .Where(p => p.AllTeams.Any(t => t.TeamOfPlayer.TeamName.Contains("Tiger-Cats")))
+                .Where(p => p.AllTeams.Any(t => t.TeamOfPlayer.Location.Contains("Manitoba")))
+                .ToList();
+
+            ViewBag.WichitaVikingsFormerPlayers = _context.Players
+                .Include(p => p.AllTeams)
+                    .ThenInclude(t => t.TeamOfPlayer)
+                        .ThenInclude(t => t.AllPlayers)
+                .Include(p => p.CurrentTeam)
+                .Where(p => p.AllTeams.Any(t => t.TeamOfPlayer.TeamName.Contains("Vikings")))
+                .Where(p => !p.CurrentTeam.TeamName.Contains("Vikings"))
+                .ToList();
+            
+            ViewBag.JacobGrayFormerColtsTeams = _context.Teams
+                .Include(t => t.AllPlayers)
+                    .ThenInclude(p => p.PlayerOnTeam)
+                .Where(t => t.AllPlayers.Any(p => p.PlayerOnTeam.FirstName.Contains("Jacob")))
+                .Where(t => t.AllPlayers.Any(p => p.PlayerOnTeam.LastName.Contains("Gray")))
+                .Where(t => t.CurrentPlayers.Any(p => !p.FirstName.Contains("Jacob")))
+                .Where(t => t.CurrentPlayers.Any(p => !p.LastName.Contains("Gray")))
+                .Where(t => !t.TeamName.Contains("Colts"))
+                .ToList();
+
+            ViewBag.JoshuaAtlantic = _context.Players
+                .Include(p => p.AllTeams)
+                    .ThenInclude(t => t.TeamOfPlayer)
+                        .ThenInclude(tp => tp.CurrLeague)
+                .Where(p => p.FirstName.Contains("Joshua"))
+                .Where(p => p.AllTeams.Any(t => t.TeamOfPlayer.CurrLeague.Name.Contains("Atlantic Federation of Amateur")))
+                .ToList();
+
+            ViewBag.TeamsOfTwelveOrMorePlayers = _context.Teams
+                .Where(t => t.AllPlayers.Count >= 12)
+                .ToList();
+
+            ViewBag.PlayersSortedByTeams = _context.Players
+                .Include(p => p.AllTeams)
+                .OrderBy(p => p.AllTeams.Count)
+                .ToList();
             return View();
         }
 
